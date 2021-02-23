@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,5 +35,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io
-          SONAR_ORGANIZATION: herculescrue
-        run: mvn -B sonar:sonar -Djava.io.tmpdir=/tmp -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.organization=${SONAR_ORGANIZATION} -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+          SONAR_ORGANIZATION: rgavilan
+          SONAR_PROJECT_KEY: rgavilan_ib-discovery
+        run: mvn -B sonar:sonar -Djava.io.tmpdir=/tmp -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.organization=${SONAR_ORGANIZATION} -Dsonar.projectKey=${SONAR_PROJECT_KEY}
