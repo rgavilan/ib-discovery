@@ -29,7 +29,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build with Maven
-        run: mvn -B -U verify
+        run: mvn -B -U clean package jacoco:report-aggregate -DfailOnError=false
+      - name: Prepare Sonar
+        run: |
+          cp discovery-test/target/site/jacoco-aggregate/jacoco.xml discovery-back/target/site/jacoco
+          cp discovery-test/target/site/jacoco-aggregate/jacoco.xml discovery-service/target/site/jacoco
       - name: Analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
